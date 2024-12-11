@@ -1,6 +1,7 @@
 package com.example.customlistview2
 
 import android.graphics.Bitmap
+import java.io.Serializable
 
 class Product (
     val name: String,
@@ -8,4 +9,4 @@ class Product (
     val description: String,
     val image: String?
 
-)
+) :Serializable

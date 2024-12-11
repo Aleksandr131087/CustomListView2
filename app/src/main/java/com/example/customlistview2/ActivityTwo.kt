@@ -8,6 +8,8 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Adapter
+import android.widget.AdapterView
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
@@ -19,13 +21,15 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import java.io.IOException
 
-class ActivityTwo : AppCompatActivity() {
+class ActivityTwo : AppCompatActivity(), Removable, Updateble {
 
     val GALERRY_REQUEST = 1
-
+    var product:Product? = null
+var item: Int? = null
     var photoUri: Uri? = null
-
+var ListAdapter : ListAdapter?=null
     val products: MutableList<Product> = mutableListOf()
+    var check = true
 
     private lateinit var toolbar: Toolbar
     private lateinit var listViewLW: ListView
@@ -34,9 +38,6 @@ class ActivityTwo : AppCompatActivity() {
     private lateinit var productNameET: EditText
     private lateinit var editImageIV: ImageView
 private lateinit var productDescriptionET: EditText
-
-    private lateinit var moveBTN: Button
-
 
 
     @SuppressLint("MissingInflatedId")
@@ -48,26 +49,31 @@ private lateinit var productDescriptionET: EditText
         setSupportActionBar(toolbar)
 
 
-        moveBTN = findViewById(R.id.moveBTN)
-        moveBTN.setOnClickListener {
-            val intent = Intent(this, ActivityThree::class.java)
-            startActivity(intent)
-
-        }
-
-        editImageIV.setOnClickListener{
+            editImageIV.setOnClickListener{
             val photoPickerIntent = Intent(Intent.ACTION_PICK)
             photoPickerIntent.type = "image/*"
             startActivityForResult(photoPickerIntent, GALERRY_REQUEST)
         }
         saveBTN.setOnClickListener {
             createProduct()
-            val ListAdapter = ListAdapter(this@ActivityTwo, products)
+            ListAdapter = ListAdapter(this@ActivityTwo, products)
             listViewLW.adapter = ListAdapter
-            ListAdapter.notifyDataSetChanged()
-
-
+            ListAdapter?.notifyDataSetChanged()
+clearEditField()
+            ListAdapter?.notifyDataSetChanged()
         }
+        
+        listViewLW.onItemClickListener =
+            AdapterView.OnItemClickListener { parent, view, position, id ->
+val product = ListAdapter!!.getItem(position)
+item = position
+                var dialog = MyAlertDialog()
+                var args = Bundle()
+                args.putSerializable("product", product)
+                dialog.arguments = args
+                dialog.show(supportFragmentManager, "custom")
+
+            }
     }
 
     private fun init() {
@@ -86,8 +92,8 @@ private lateinit var productDescriptionET: EditText
         val productPrice = productPriceET.text.toString()
         val productimage = photoUri.toString()
         val descriptionimage = productDescriptionET.text.toString()
-        val product = Product(productName, productPrice, productimage, descriptionimage)
-        products.add(product)
+        product = Product(productName, productPrice, productimage, descriptionimage)
+        products.add(product!!)
         clearEditField()
         photoUri=null
     }
@@ -96,7 +102,7 @@ private lateinit var productDescriptionET: EditText
         productNameET.text.clear()
         productPriceET.text.clear()
         productDescriptionET.text.clear()
-        editImageIV.setImageResource(R.drawable.ic_launcher_foreground
+        editImageIV.setImageResource(R.drawable.ic_launcher_foreground)
     }
 
     override fun onActivityResult(
@@ -124,6 +130,25 @@ private lateinit var productDescriptionET: EditText
             R.id.menu_exit -> finishAffinity()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun remove(product: Product) {
+ListAdapter?.remove(product)
+
+
+    }
+
+    override fun update(product: Product) {
+
+val intent = Intent(this, ActivityThree::class.java)
+intent.putExtra("product", product)
+        intent.putExtra("product", this.products as ArrayList<Product>)
+        intent.putExtra("position", item)
+        intent.putExtra("check", check)
+        startActivity(intent)
+
+
+
     }
 
 }

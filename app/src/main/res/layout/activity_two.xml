@@ -71,14 +71,6 @@
         android:text="@string/button_save_text"
         android:layout_margin="24dp"/>
 
-    <Button
-        android:id="@+id/moveBTN"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="перейти на страницу описания продукта"
-        />
-
-
 
     <ListView
         android:id="@+id/listViewLW"

@@ -22,11 +22,11 @@ class MyAlertDialog: DialogFragment () {
         val product = requireArguments().getSerializable("product")
         val builder = AlertDialog.Builder(requireActivity())
         return builder
-            .setTitle("Внимание!")
+            .setTitle("Внимание! Ваши дальнейшие действия?")
             .setPositiveButton("Показать информацию о продукте"){dialog, which ->
 updateble?.update(product as Product)
             }
-            .setNeutralButton("Редактировать"){
+            .setNeutralButton("Удалить"){
                 dialog, which ->removable?.remove(product as Product)
             }
             .setNegativeButton("Отмена", null)
