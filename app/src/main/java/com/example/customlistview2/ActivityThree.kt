@@ -1,5 +1,6 @@
 package com.example.customlistview2
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -34,13 +35,23 @@ private lateinit var productDescriptionETThree:TextView
         title = "Описание продукта"
         setSupportActionBar(toolbarThree)
 
-        val name = intent.getStringExtra("PRODUCT_NAME")
-        val price = intent.getStringExtra("PRODUCT_PRICE")
-        val description = intent.getStringExtra("PRODUCT_DESCRIPTION")
+        val product: Product =intent.extras?.getSerializable("product") as Product
+        val products = intent.extras?.getSerializable("products")
+        val item = intent.extras?.getInt("position")
+        var check = intent.extras?.getBoolean("check")
 
-        productNameETThree.text = name
-        productPriceETThree.text = price
-        productDescriptionETThree.text = description
+        val name = product.name
+        val price = product.price
+        val description = product.description
+        val image: Uri? = Uri.parse(product.image)
+
+        productNameETThree.setText(name)
+        productPriceETThree.setText(price)
+        productDescriptionETThree.setText(description)
+        editImageIVThree.setImageURI(image)
+
+
+
 
 
     }

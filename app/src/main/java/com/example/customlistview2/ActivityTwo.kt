@@ -142,7 +142,7 @@ ListAdapter?.remove(product)
 
 val intent = Intent(this, ActivityThree::class.java)
 intent.putExtra("product", product)
-        intent.putExtra("product", this.products as ArrayList<Product>)
+        intent.putExtra("products", this.products as ArrayList<Product>)
         intent.putExtra("position", item)
         intent.putExtra("check", check)
         startActivity(intent)
