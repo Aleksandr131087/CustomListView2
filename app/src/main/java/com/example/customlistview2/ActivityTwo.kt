@@ -23,7 +23,7 @@ class ActivityTwo : AppCompatActivity() {
 
     val GALERRY_REQUEST = 1
 
-    var bitmap: Bitmap? = null
+    var photoUri: Uri? = null
 
     val products: MutableList<Product> = mutableListOf()
 
@@ -33,6 +33,7 @@ class ActivityTwo : AppCompatActivity() {
     private lateinit var productPriceET: EditText
     private lateinit var productNameET: EditText
     private lateinit var editImageIV: ImageView
+private lateinit var productDescriptionET: EditText
 
     private lateinit var moveBTN: Button
 
@@ -42,12 +43,7 @@ class ActivityTwo : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_two)
-        listViewLW = findViewById(R.id.listViewLW)
-        saveBTN = findViewById(R.id.saveBTN)
-        productNameET = findViewById(R.id.productNameET)
-        productPriceET = findViewById(R.id.productPriceET)
-        editImageIV = findViewById(R.id.editImageIV)
-        toolbar = findViewById(R.id.toolbar)
+        init()
         title = "Корзина с продуктами"
         setSupportActionBar(toolbar)
 
@@ -65,20 +61,43 @@ class ActivityTwo : AppCompatActivity() {
             startActivityForResult(photoPickerIntent, GALERRY_REQUEST)
         }
         saveBTN.setOnClickListener {
-            val productName = productNameET.text.toString()
-            val productPrice = productPriceET.text.toString()
-            val productimage = bitmap
-            val product = Product(productName, productPrice, productimage)
-            products.add(product)
+            createProduct()
             val ListAdapter = ListAdapter(this@ActivityTwo, products)
             listViewLW.adapter = ListAdapter
             ListAdapter.notifyDataSetChanged()
-            productNameET.text.clear()
-            productPriceET.text.clear()
-            editImageIV.setImageResource(R.drawable.ic_launcher_foreground)
+
+
         }
     }
 
+    private fun init() {
+        listViewLW = findViewById(R.id.listViewLW)
+        saveBTN = findViewById(R.id.saveBTN)
+        productNameET = findViewById(R.id.productNameET)
+        productPriceET = findViewById(R.id.productPriceET)
+        editImageIV = findViewById(R.id.editImageIV)
+        productDescriptionET = findViewById(R.id.productDescriptionET)
+
+        toolbar = findViewById(R.id.toolbar)
+    }
+
+    private fun createProduct() {
+        val productName = productNameET.text.toString()
+        val productPrice = productPriceET.text.toString()
+        val productimage = photoUri.toString()
+        val descriptionimage = productDescriptionET.text.toString()
+        val product = Product(productName, productPrice, productimage, descriptionimage)
+        products.add(product)
+        clearEditField()
+        photoUri=null
+    }
+
+    private fun clearEditField() {
+        productNameET.text.clear()
+        productPriceET.text.clear()
+        productDescriptionET.text.clear()
+        editImageIV.setImageResource(R.drawable.ic_launcher_foreground
+    }
 
     override fun onActivityResult(
         requestCode: Int,
@@ -88,18 +107,11 @@ class ActivityTwo : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
             GALERRY_REQUEST -> if (resultCode == RESULT_OK) {
-                val selectedImage: Uri? = data?.data
-                try {
-                    bitmap = MediaStore.Images.Media.getBitmap(contentResolver, selectedImage)
-                    editImageIV.setImageBitmap(bitmap)
-                } catch (e: IOException) {
-                    e.printStackTrace()
+                photoUri = data?.data
+                editImageIV.setImageURI(photoUri)
 
-                }
             }
-
         }
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
