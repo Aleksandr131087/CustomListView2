@@ -10,7 +10,7 @@
     android:background="@color/brown">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+        android:id="@+id/toolbarThree"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -23,9 +23,9 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/editImageIV"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:id="@+id/editImageIVThree"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
             android:layout_margin="32dp"
             android:src="@drawable/ic_launcher_foreground"/>
 
@@ -37,7 +37,7 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/productNameET"
+                android:id="@+id/productNameETThree"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/product_name_text"
@@ -45,7 +45,7 @@
                 android:textColor="@color/black"/>
 
             <EditText
-                android:id="@+id/productPriceET"
+                android:id="@+id/productPriceETThree"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/product_price_text"
@@ -53,7 +53,7 @@
                 android:textColor="@color/black"/>
 
             <EditText
-                android:id="@+id/productDescriptionET"
+                android:id="@+id/productDescriptionETThree"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="краткое описание продукта"
@@ -64,27 +64,8 @@
         </LinearLayout>
 
     </LinearLayout>
-    <Button
-        android:id="@+id/saveBTN"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/button_save_text"
-        android:layout_margin="24dp"/>
-
-    <Button
-        android:id="@+id/moveBTN"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="перейти на страницу описания продукта"
-        android:layout_margin="24dp"/>
 
 
 
-    <ListView
-        android:id="@+id/listViewLW"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:listitem="@layout/list_item"
-        />
 
 </LinearLayout>

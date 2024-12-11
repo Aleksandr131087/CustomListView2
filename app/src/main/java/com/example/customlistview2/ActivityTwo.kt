@@ -1,5 +1,6 @@
 package com.example.customlistview2
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
@@ -33,8 +34,11 @@ class ActivityTwo : AppCompatActivity() {
     private lateinit var productNameET: EditText
     private lateinit var editImageIV: ImageView
 
+    private lateinit var moveBTN: Button
 
 
+
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_two)
@@ -46,6 +50,14 @@ class ActivityTwo : AppCompatActivity() {
         toolbar = findViewById(R.id.toolbar)
         title = "Корзина с продуктами"
         setSupportActionBar(toolbar)
+
+
+        moveBTN = findViewById(R.id.moveBTN)
+        moveBTN.setOnClickListener {
+            val intent = Intent(this, ActivityThree::class.java)
+            startActivity(intent)
+
+        }
 
         editImageIV.setOnClickListener{
             val photoPickerIntent = Intent(Intent.ACTION_PICK)
