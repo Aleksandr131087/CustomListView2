@@ -91,7 +91,7 @@ item = position
     private fun createProduct() {
         val productName = productNameET.text.toString()
         val productPrice = productPriceET.text.toString()
-        val productimage = photoUri
+        val productimage = photoUri.toString()
         val descriptionimage = productDescriptionET.text.toString()
         product = Product(productName, productPrice,  descriptionimage, productimage,)
         products.add(product!!)
@@ -116,7 +116,6 @@ item = position
             GALERRY_REQUEST -> if (resultCode == RESULT_OK) {
                 photoUri = data?.data
                 editImageIV.setImageURI(photoUri)
-
             }
         }
     }
@@ -135,21 +134,16 @@ item = position
 
     override fun remove(product: Product) {
 ListAdapter?.remove(product)
-
-
     }
 
     override fun update(product: Product) {
 
-val intent = Intent(this, ActivityThree::class.java)
+val intent = Intent(this@ActivityTwo, ActivityThree::class.java)
 intent.putExtra("product", product)
         intent.putExtra("products", this.products as ArrayList<Product>)
         intent.putExtra("position", item)
         intent.putExtra("check", check)
         startActivity(intent)
-
-
-
     }
 
 }

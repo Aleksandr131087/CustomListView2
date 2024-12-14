@@ -22,7 +22,7 @@ class ListAdapter(context: Context, productList: MutableList<Product>): ArrayAda
         val priceViewTV = view?.findViewById<TextView>(R.id.productPriceTV)
 
 
-        imageViewIV?.setImageURI(Uri.parse(product?.image.toString()))
+        imageViewIV?.setImageURI(Uri.parse(product?.image))
         nameViewTV?.text = product?.name
         priceViewTV?.text=product?.price
 
