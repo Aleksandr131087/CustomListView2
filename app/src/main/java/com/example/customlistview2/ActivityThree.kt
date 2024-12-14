@@ -43,7 +43,7 @@ private lateinit var productDescriptionETThree:TextView
         val name = product.name
         val price = product.price
         val description = product.description
-        val image: Uri? = Uri.parse(product.image)
+        val image: Uri? = Uri.parse(product.image.toString())
 
         productNameETThree.setText(name)
         productPriceETThree.setText(price)

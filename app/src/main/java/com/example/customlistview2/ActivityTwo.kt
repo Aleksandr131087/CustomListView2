@@ -87,12 +87,13 @@ item = position
         toolbar = findViewById(R.id.toolbar)
     }
 
+
     private fun createProduct() {
         val productName = productNameET.text.toString()
         val productPrice = productPriceET.text.toString()
-        val productimage = photoUri.toString()
+        val productimage = photoUri
         val descriptionimage = productDescriptionET.text.toString()
-        product = Product(productName, productPrice, productimage, descriptionimage)
+        product = Product(productName, productPrice,  descriptionimage, productimage,)
         products.add(product!!)
         clearEditField()
         photoUri=null
